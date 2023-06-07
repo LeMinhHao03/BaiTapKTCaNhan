@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Nhanvien List</title>
+    <th:block th:replace="layout :: link-css"></th:block>
+</head>
+<body>
+<th:block th:replace="layout :: header"></th:block>
+<div class="container">
+  <h1 th:text="${title}"></h1>
+  <table class="table">
+    <tr>
+      <th>Mã Nhân Viên</th>
+      <th>Tên Nhân Viên</th>
+      <th>Giới Tính</th>
+      <th>Nơi Sinh</th>
+      <th>Mã Phòng</th>
+      <th>Lương</th>
+    </tr>
+    <tr th:each="nhanvien : ${nhanviens}">
+      <td th:text="${nhanvien.Ma_NV}"></td>
+      <td th:text="${nhanvien.Ten_NV}"></td>
+      <td>
+        <img th:if="${nhanvien.Phai == 'Nam'}" src="/images/Man.jpg" width="60" height="60" />
+        <img th:if="${nhanvien.Phai == 'Nữ'}" src="/images/Woman.jpg"  width="60" height="60" />
+      </td>
+<!--      <td th:text="${nhanvien.Phai}"></td>-->
+      <td th:text="${nhanvien.Noi_Sinh}"></td>
+      <td th:text="${nhanvien.Luong}"></td>
+      <td th:text="${nhanvien.PhongBan.Ma_Phong}"></td>
+      <td>
+        <a th:href="@{/nhanviens/edit/{id}(id=${nhanvien.Ma_NV})}">Edit</a>
+        <a th:href="@{/nhanviens/delete/{id}(id=${nhanvien.Ma_NV})}" onclick="return confirm('Are you sure?')">Delete</a>
+      </td>
+    </tr>
+  </table>
+</div>
+<th:block th:replace="~{layout :: footer}"></th:block>
+</body>
+</html>
